@@ -5,6 +5,4 @@ public class Tablero {
     public Tablero (int n) {
         casillas = new Ficha[n][n];
     }
-
-
 }

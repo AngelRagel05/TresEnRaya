@@ -7,6 +7,4 @@ public class Partida {
         tablero = new Tablero(n);
         turno = Math.random() < 0.5 ? Ficha.X : Ficha.O;
     }
-
-
 }
