@@ -1,3 +1,5 @@
+package model;
+
 public class Tablero {
 
     private Ficha[][] casillas;
