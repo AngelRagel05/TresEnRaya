@@ -41,15 +41,9 @@ public class Tablero {
         for (int i = 0; i < casillas.length; i++) {
             int cont = 0;
             int j = 0;
-            if (casillas[i][j] == ficha) {
-                cont++;
-            } else {
-                cont = 0;
-            }
+            cont = (casillas[i][j] != ficha) ? cont = 0 : cont++;
 
-            if (cont == 3) {
-                return true;
-            }
+            if (cont == 3) return true;
         }
         return false;
     }
@@ -106,4 +100,15 @@ public class Tablero {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        for (int i = 0; i < casillas.length; i++) {
+            for (int j = 0; j < casillas.length; j++) {
+
+            }
+        }
+        return
+    }
+
 }
