@@ -4,9 +4,78 @@ public class Tablero {
 
     private Ficha[][] casillas;
 
-    public Tablero () {
-        casillas = new Ficha[3][3];
+    public Tablero (int tam) {
+        casillas = new Ficha[tam][tam];
     }
 
+    protected Boolean ponerFicha(Ficha ficha, int x, int y) {
+        if (casillas[x][y] == null) {
+            casillas[x][y] = ficha;
+            return true;
+        } else {
+            System.out.println("La casilla elegida está ocupado por: " + casillas[x][y]);
+            return false;
+        }
+    }
 
+    protected Boolean estaLleno() {
+        int conteo = 0;
+        for (int i = 0; i < casillas.length; i++) {
+            for (int j = 0; j < casillas.length; j++) {
+                if (casillas[i][j] == null) {
+                    System.out.println("El trablero no está lleno, siguiente jugada.");
+                    i = casillas.length;
+                    j = casillas.length;
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    protected Boolean gana(Ficha ficha) {
+        return ganaHorizontal(ficha) || ganaVertical(ficha) || ganaDiagonalDirecta(ficha) || ganaDiagonalIndirecta(ficha);
+    }
+
+    private Boolean ganaHorizontal(Ficha ficha) {
+        for (int i = 0; i < casillas.length; i++) {
+            int cont = 0;
+            int j = 0;
+            if (casillas[i][j] == ficha) {
+                cont++;
+            } else {
+                cont = 0;
+            }
+
+            if (cont == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Boolean ganaVertical(Ficha ficha) {
+        for (int j = 0; j < casillas.length; j++) {
+            int cont = 0;
+            int i = 0;
+            if (casillas[i][j] == ficha) {
+                cont++;
+            } else {
+                cont = 0;
+            }
+
+            if (cont == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Boolean ganaDiagonalDirecta(Ficha ficha) {
+        for (int )
+    }
+
+    private Boolean ganaDiagonalIndirecta(Ficha ficha) {
+
+    }
 }
