@@ -34,7 +34,7 @@ public class Tablero {
     }
 
     protected Boolean gana(Ficha ficha) {
-        return ganaHorizontal(ficha) || ganaVertical(ficha) || ganaDiagonalDirecta(ficha) || ganaDiagonalIndirecta(ficha);
+        return ganaHorizontal(ficha) || ganaVertical(ficha) || ganaDiagonalAnversa(ficha) || ganaDiagonalIndirecta(ficha);
     }
 
     private Boolean ganaHorizontal(Ficha ficha) {
@@ -71,11 +71,39 @@ public class Tablero {
         return false;
     }
 
-    private Boolean ganaDiagonalDirecta(Ficha ficha) {
-        for (int )
+    private Boolean ganaDiagonalAnversa(Ficha ficha) {
+        for (int i = 0; i < casillas.length; i++) {
+            int cont = 0;
+            int j = 0;
+            if (casillas[i][j] == ficha) {
+                cont++;
+                j++;
+            } else {
+                cont = 0;
+            }
+
+            if (cont == 3) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    private Boolean ganaDiagonalIndirecta(Ficha ficha) {
+    private Boolean ganaDiagonalInverta(Ficha ficha) {
+        for (int j = casillas.length; j > 0; j--) {
+            int cont = 0;
+            int i = 0;
+            if (casillas[i][j] == ficha) {
+                cont++;
+                i++;
+            } else {
+                cont = 0;
+            }
 
+            if (cont == 3) {
+                return true;
+            }
+        }
+        return false;
     }
 }
