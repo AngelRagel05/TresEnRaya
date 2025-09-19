@@ -34,7 +34,7 @@ public class Tablero {
     }
 
     protected Boolean gana(Ficha ficha) {
-        return ganaHorizontal(ficha) || ganaVertical(ficha) || ganaDiagonalAnversa(ficha) || ganaDiagonalIndirecta(ficha);
+        return ganaHorizontal(ficha) || ganaVertical(ficha) || ganaDiagonalAnversa(ficha) || ganaDiagonalInvertida(ficha);
     }
 
     private Boolean ganaHorizontal(Ficha ficha) {
@@ -89,7 +89,7 @@ public class Tablero {
         return false;
     }
 
-    private Boolean ganaDiagonalInverta(Ficha ficha) {
+    private Boolean ganaDiagonalInvertida(Ficha ficha) {
         for (int j = casillas.length; j > 0; j--) {
             int cont = 0;
             int i = 0;
