@@ -1,4 +1,7 @@
 import model.Partida;
 public class Juego {
-    Partida juego = new Partida(4);
+    public static void main(String[] args) {
+        
+        Partida juego = new Partida(4);
+    }
 }
