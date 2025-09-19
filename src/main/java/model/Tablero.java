@@ -103,12 +103,17 @@ public class Tablero {
 
     @Override
     public String toString() {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas.length; j++) {
-
+                sb.append(
+                        (casillas[i][j] == Ficha.O) ? "O" :
+                        (casillas[i][j] == Ficha.X) ? "0" : "-"
+                );
+                if (j < casillas[i].length - 1) sb.append(" ");
             }
+            sb.append("\n");
         }
-        return
+        return sb.toString();
     }
-
 }
