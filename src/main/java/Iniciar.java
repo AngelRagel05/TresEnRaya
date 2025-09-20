@@ -1,8 +1,6 @@
-import model.Partida;
-public class Juego {
+import model.Juego;
+public class Iniciar {
     public static void main(String[] args) {
-        Partida juego = new Partida();
-        System.out.println("Inicio del juego.");
-        
+        Juego.arrancarJuego();
     }
 }

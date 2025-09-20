@@ -11,7 +11,7 @@ public class Partida {
         turno = Math.random() < 0.5 ? Ficha.X : Ficha.O;
     }
 
-    protected void jugar(int fila, int columna) {
+    public void jugar(int fila, int columna) {
         if (!terminada() && Tablero.ponerFicha(turno, fila, columna)) {
             if (Tablero.gana(turno)) {
                 turno = turno.siguiente();
