@@ -2,13 +2,17 @@ package model;
 
 public class Tablero {
 
-    private static Ficha[][] casillas;
+    private Ficha[][] casillas;
 
     public Tablero (int tam) {
         casillas = new Ficha[tam][tam];
     }
 
-    protected static Boolean ponerFicha(Ficha ficha, int x, int y) {
+    protected Boolean ponerFicha(Ficha ficha, int x, int y) {
+        if (x < 0 || x >= casillas.length || y < 0 || y >= casillas.length) {
+            System.err.println("⚠️ Posición fuera del tablero");
+            return false;
+        }
         if (casillas[x][y] == null) {
             casillas[x][y] = ficha;
             return true;
@@ -18,14 +22,10 @@ public class Tablero {
         }
     }
 
-    protected static Boolean estaLleno() {
-        int conteo = 0;
+    protected Boolean estaLleno() {
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas.length; j++) {
                 if (casillas[i][j] == null) {
-                    System.out.println("El trablero no está lleno, siguiente jugada.");
-                    i = casillas.length;
-                    j = casillas.length;
                     return false;
                 }
             }
@@ -33,11 +33,11 @@ public class Tablero {
         return true;
     }
 
-    protected static Boolean gana(Ficha ficha) {
+    protected Boolean gana(Ficha ficha) {
         return ganaHorizontal(ficha) || ganaVertical(ficha) || ganaDiagonalAnversa(ficha) || ganaDiagonalInvertida(ficha);
     }
 
-    private static Boolean ganaHorizontal(Ficha ficha) {
+    private Boolean ganaHorizontal(Ficha ficha) {
         for (int i = 0; i < casillas.length; i++) {
             int cont = 0;
             for (int j = 0; j < casillas.length; j++) {
@@ -48,7 +48,7 @@ public class Tablero {
         return false;
     }
 
-    private static Boolean ganaVertical(Ficha ficha) {
+    private Boolean ganaVertical(Ficha ficha) {
         for (int j = 0; j < casillas.length; j++) {
             int cont = 0;
             for (int i = 0; i < casillas.length; i++) {
@@ -59,7 +59,7 @@ public class Tablero {
         return false;
     }
 
-    private static Boolean ganaDiagonalAnversa(Ficha ficha) {
+    private Boolean ganaDiagonalAnversa(Ficha ficha) {
         int cont = 0;
         for (int i = 0; i < casillas.length; i++) {
             cont = (casillas[i][i] == ficha) ? cont + 1 : 0;
@@ -68,10 +68,10 @@ public class Tablero {
         return false;
     }
 
-    private static Boolean ganaDiagonalInvertida(Ficha ficha) {
+    private Boolean ganaDiagonalInvertida(Ficha ficha) {
         int cont = 0;
-        for (int i = casillas.length; i > 0; i--) {
-            cont = (casillas[i][i] == ficha) ? cont + 1 : 0;
+        for (int i = 0; i < casillas.length; i++) {
+            cont = (casillas[i][casillas.length - 1 - i] == ficha) ? cont + 1 : 0;
             if (cont == 3) return true;
         }
         return false;
@@ -83,8 +83,8 @@ public class Tablero {
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas.length; j++) {
                 sb.append(
-                        (casillas[i][j] == Ficha.O) ? "O" :
-                        (casillas[i][j] == Ficha.X) ? "X" : "-"
+                        (casillas[i][j] == Ficha.O) ? "⭕" :
+                        (casillas[i][j] == Ficha.X) ? "❌" : "〰️"
                 );
                 if (j < casillas[i].length - 1) sb.append(" ");
             }
@@ -93,8 +93,8 @@ public class Tablero {
         return sb.toString();
     }
 
-    protected static Object valueOf(Ficha ficha) {
-        return (ficha == Ficha.O) ? "O" :
-                (ficha == Ficha.X) ? "X" : "-";
+    protected Object valueOf(Ficha ficha) {
+        return (ficha == Ficha.O) ? "⭕" :
+                (ficha == Ficha.X) ? "❌" : "〰️";
     }
 }

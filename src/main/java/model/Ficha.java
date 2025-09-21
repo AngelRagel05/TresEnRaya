@@ -1,8 +1,8 @@
 package model;
 
 public enum Ficha {
-    X("X"),
-    O("O");
+    X("❌"),
+    O("⭕");
 
     private final String simbolo;
 

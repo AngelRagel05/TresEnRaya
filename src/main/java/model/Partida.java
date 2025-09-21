@@ -12,20 +12,23 @@ public class Partida {
     }
 
     public void jugar(int fila, int columna) {
-        if (!terminada() && Tablero.ponerFicha(turno, fila, columna)) {
-            if (Tablero.gana(turno)) {
+        if (!terminada() && tablero.ponerFicha(turno, fila, columna)) {
+            if (tablero.gana(turno)) {
+                System.out.println(tablero);
+                System.out.println("🎉 ¡Victoria de " + turno + "! 🎉");
+            } else {
                 turno = turno.siguiente();
             }
         }
     }
 
     public Boolean terminada() {
-        return Tablero.estaLleno() || ganador() != null;
+        return tablero.estaLleno() || ganador() != null;
     }
 
     protected Ficha ganador() {
-        if (Tablero.gana(Ficha.O) == true) return Ficha.O;
-        if (Tablero.gana(Ficha.X) == true) return Ficha.X;
+        if (tablero.gana(Ficha.O) == true) return Ficha.O;
+        if (tablero.gana(Ficha.X) == true) return Ficha.X;
         return null;
     }
 
