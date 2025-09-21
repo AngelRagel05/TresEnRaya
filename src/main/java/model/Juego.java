@@ -14,7 +14,6 @@ public class Juego {
             System.out.println(partida);
             partida.jugar(introducirFila(), introducirColumna());
         }
-
     }
 
     private static int introducirFila() {
@@ -22,7 +21,7 @@ public class Juego {
         Boolean check = false;
         while (!check) {
             try {
-                System.out.println("Introduce la posición de la fila.");
+                System.out.print("Introduce la posición de la fila.");
                 fila = sc.nextInt();
                 while (fila < 0) {
                     System.err.println("Error. Debe introducir un número entero positivo.");
@@ -42,7 +41,7 @@ public class Juego {
         Boolean check = false;
         while (!check) {
             try {
-                System.out.println("Introduce la posición de la columna.");
+                System.out.print("Introduce la posición de la columna.");
                 columna = sc.nextInt();
                 while (columna < 0) {
                     System.err.println("Error. Debe introducir un número entero positivo.");
