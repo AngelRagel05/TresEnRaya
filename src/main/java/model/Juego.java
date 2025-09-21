@@ -5,9 +5,11 @@ import java.util.Scanner;
 
 public class Juego {
 
+//    Atributos
     private static Scanner sc = new Scanner(System.in);
 
     public static void arrancarJuego() {
+//        Muestra mensaje inicial e incia la partida
         System.out.println("Inicio del partida de Tres en Raya. ❌⭕");
         Partida partida = new Partida();
         while (!partida.terminada()) {
@@ -17,6 +19,7 @@ public class Juego {
     }
 
     private static int introducirFila() {
+//        Depura que el usuario introduzca un número
         int fila = 0;
         Boolean check = false;
         while (!check) {
@@ -37,6 +40,7 @@ public class Juego {
     }
 
     private static int introducirColumna() {
+//        Depura que el usuario introduzca un número
         int columna = 0;
         Boolean check = false;
         while (!check) {
