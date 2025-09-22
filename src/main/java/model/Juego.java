@@ -3,12 +3,12 @@ package model;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Juego {
+public class Juego implements IJuego {
 
 //    Atributos
     private static Scanner sc = new Scanner(System.in);
 
-    public static void arrancarJuego() {
+    public void arrancarJuego() {
 //        Muestra mensaje inicial e incia la partida
         System.out.println("Inicio del partida de Tres en Raya. ❌⭕");
         Partida partida = new Partida();
@@ -19,7 +19,7 @@ public class Juego {
         System.out.println("El juego ha acabado.");
     }
 
-    private static int introducirFila() {
+    public int introducirFila() {
 //        Depura que el usuario introduzca un número
         int fila = 0;
         Boolean check = false;
@@ -40,7 +40,7 @@ public class Juego {
         return fila;
     }
 
-    private static int introducirColumna() {
+    public int introducirColumna() {
 //        Depura que el usuario introduzca un número
         int columna = 0;
         Boolean check = false;

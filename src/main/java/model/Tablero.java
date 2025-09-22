@@ -1,6 +1,6 @@
 package model;
 
-public class Tablero {
+public class Tablero implements ITablero {
 
 //    Atributo que es el tablero
     private Ficha[][] casillas;
@@ -14,7 +14,7 @@ public class Tablero {
     Métodos para aplicar la lógica del Tres en Raya
  */
 
-    protected Boolean ponerFicha(Ficha ficha, int x, int y) {
+    public Boolean ponerFicha(Ficha ficha, int x, int y) {
 //        Compruebo si está dentro de los límites del tablero
         if (x < 0 || x >= casillas.length || y < 0 || y >= casillas.length) {
             System.err.println("⚠️ Posición fuera del tablero.");
@@ -31,7 +31,7 @@ public class Tablero {
         }
     }
 
-    protected Boolean estaLleno() {
+    public Boolean estaLleno() {
 //        Recorro el tablero y si encuentro un null significa que hay casillas libres
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas.length; j++) {
@@ -43,7 +43,7 @@ public class Tablero {
         return true;
     }
 
-    protected Boolean gana(Ficha ficha) {
+    public Boolean gana(Ficha ficha) {
 //        Verifico todas direcciones para ver si hay un ganador
         return ganaHorizontal(ficha) || ganaVertical(ficha) || ganaDiagonalAnversa(ficha) || ganaDiagonalInvertida(ficha);
     }
@@ -109,7 +109,7 @@ public class Tablero {
         return sb.toString();
     }
 
-    protected Object valueOf(Ficha ficha) {
+    public Object valueOf(Ficha ficha) {
 //        Devuelve el valor de la ficha ⭕, ❌ o 〰️ si es null
         return (ficha == Ficha.O) ? "⭕" :
                 (ficha == Ficha.X) ? "❌" : "〰️";

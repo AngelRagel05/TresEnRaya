@@ -1,6 +1,6 @@
 package model;
 
-public class Partida {
+public class Partida implements IPartida {
 
 //    Atributos
     private static final int TAM = 3;
