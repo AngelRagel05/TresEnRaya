@@ -18,12 +18,26 @@ public class JuegoGUI extends JFrame {
     private int victoriasX = 0;
     private int victoriasO = 0;
 
+    private ImageIcon iconoX;
+    private ImageIcon iconoO;
+
+    // Color de fondo de las partidas #180d2b
+    private final Color colorFondo = new Color(24, 13, 43);
+
     public JuegoGUI() {
         partida = new Partida();
         botones = new JButton[3][3];
 
+        iconoX = cargarIconoEscalado("src/main/resources/X.png", 110, 110);
+        iconoO = cargarIconoEscalado("src/main/resources/O.png", 110, 110);
+
+        // -------------------- ICONO PERSONALIZADO --------------------
+        ImageIcon iconoJuego = new ImageIcon("src/main/resources/icono.png");
+        setIconImage(iconoJuego.getImage());
+
+        // Cargar iconos de victoria/empate
         iconoVictoria = cargarIconoEscalado("src/main/resources/victoria.png", 64, 64);
-        iconoEmpate = cargarIconoEscalado("src/main/resources/empate.png", 64, 64);
+        iconoEmpate   = cargarIconoEscalado("src/main/resources/empate.png", 64, 64);
 
         setTitle("Tres en Raya");
         setSize(450, 550);
@@ -47,7 +61,8 @@ public class JuegoGUI extends JFrame {
         JLabel bienvenida = new JLabel("¡Bienvenido a Tres en Raya!", SwingConstants.CENTER);
         bienvenida.setFont(new Font("Arial", Font.BOLD, 24));
         bienvenida.setOpaque(true);
-        bienvenida.setBackground(Color.WHITE);
+        bienvenida.setBackground(colorFondo);
+        bienvenida.setForeground(Color.WHITE);
         bienvenida.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
         menuPanel.add(bienvenida, BorderLayout.NORTH);
 
@@ -59,7 +74,7 @@ public class JuegoGUI extends JFrame {
                 super.paintComponent(g);
                 g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
                 Graphics2D g2 = (Graphics2D) g;
-                g2.setColor(new Color(255, 255, 255, 100));
+                g2.setColor(new Color(255, 255, 255, 1));
                 g2.fillRect(0, 0, getWidth(), getHeight());
             }
         };
@@ -96,16 +111,20 @@ public class JuegoGUI extends JFrame {
         getContentPane().removeAll();
         partida = new Partida();
 
+        // Panel superior
         JPanel panelSuperior = new JPanel();
         panelSuperior.setLayout(new BoxLayout(panelSuperior, BoxLayout.Y_AXIS));
         panelSuperior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panelSuperior.setBackground(colorFondo);
 
         lblTurno = new JLabel("Turno: " + fichaToString(Partida.turno), SwingConstants.CENTER);
         lblTurno.setFont(new Font("Arial", Font.BOLD, 20));
+        lblTurno.setForeground(Color.WHITE);
         lblTurno.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        lblMarcador = new JLabel("Marcador: X=" + victoriasX + "  O=" + victoriasO, SwingConstants.CENTER);
+        lblMarcador = new JLabel("Marcador: X = " + victoriasX + "    O = " + victoriasO, SwingConstants.CENTER);
         lblMarcador.setFont(new Font("Arial", Font.BOLD, 16));
+        lblMarcador.setForeground(Color.WHITE);
         lblMarcador.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         panelSuperior.add(lblTurno);
@@ -114,15 +133,19 @@ public class JuegoGUI extends JFrame {
 
         add(panelSuperior, BorderLayout.NORTH);
 
-        JPanel tableroPanel = new JPanel(new GridLayout(3, 3, 5, 5));
-        tableroPanel.setBackground(Color.BLACK);
+        // Tablero
+        JPanel tableroPanel = new JPanel(new GridLayout(3, 3));
+        tableroPanel.setBackground(colorFondo);
+
         Font fuenteBoton = new Font("Arial", Font.BOLD, 50);
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 JButton boton = new JButton(" ");
                 boton.setFont(fuenteBoton);
-                boton.setBackground((i + j) % 2 == 0 ? Color.WHITE : Color.LIGHT_GRAY);
+                boton.setForeground(Color.WHITE);
+                boton.setBackground(colorFondo); // fondo personalizado
+                boton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
                 final int fila = i, col = j;
                 boton.addActionListener(e -> jugar(fila, col, boton));
                 botones[i][j] = boton;
@@ -131,8 +154,10 @@ public class JuegoGUI extends JFrame {
         }
         add(tableroPanel, BorderLayout.CENTER);
 
+        // Panel inferior de botones
         JPanel botonesPanel = new JPanel(new GridLayout(1, 2, 10, 0));
         botonesPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        botonesPanel.setBackground(colorFondo);
 
         JButton btnReiniciar = new JButton("Reiniciar");
         btnReiniciar.setFont(new Font("Arial", Font.BOLD, 16));
@@ -150,9 +175,20 @@ public class JuegoGUI extends JFrame {
         repaint();
     }
 
+    // ------------------- JUGAR -------------------
     private void jugar(int fila, int col, JButton boton) {
-        if (!partida.terminada() && boton.getText().equals(" ")) {
-            boton.setText(fichaToString(Partida.turno));
+        if (!partida.terminada() && boton.getIcon() == null) {
+            Ficha turnoActual = Partida.turno;
+
+            // Coloca la imagen según la ficha
+            if (turnoActual == Ficha.X) {
+                boton.setIcon(iconoX);
+            } else if (turnoActual == Ficha.O) {
+                boton.setIcon(iconoO);
+            }
+
+            boton.setText("");
+
             partida.jugar(fila, col);
 
             if (partida.terminada()) {
@@ -162,13 +198,13 @@ public class JuegoGUI extends JFrame {
 
                     JOptionPane.showMessageDialog(this,
                             "Victoria de " + fichaToString(partida.ganador()) + "\n" +
-                                    "Marcador: X=" + victoriasX + "  O=" + victoriasO,
+                                    "Marcador: X = " + victoriasX + "    O = " + victoriasO,
                             "Fin de la partida",
                             JOptionPane.PLAIN_MESSAGE,
                             iconoVictoria);
                 } else {
                     JOptionPane.showMessageDialog(this,
-                            "Empate\nMarcador: X=" + victoriasX + "  O=" + victoriasO,
+                            "Empate\nMarcador: X = " + victoriasX + "    O = " + victoriasO,
                             "Fin de la partida",
                             JOptionPane.PLAIN_MESSAGE,
                             iconoEmpate);
@@ -180,18 +216,22 @@ public class JuegoGUI extends JFrame {
         }
     }
 
+    // ------------------- REINICIAR PARTIDA -------------------
     private void reiniciarPartida() {
         partida = new Partida();
         lblTurno.setText("Turno: " + fichaToString(Partida.turno));
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 botones[i][j].setText(" ");
-                botones[i][j].setBackground((i + j) % 2 == 0 ? Color.WHITE : Color.LIGHT_GRAY);
+                botones[i][j].setIcon(null);
+                botones[i][j].setForeground(Color.WHITE);
+                botones[i][j].setBackground(colorFondo);
             }
         }
         lblMarcador.setText("Marcador: X = " + victoriasX + "    O = " + victoriasO);
     }
 
+    // ------------------- MÉTODOS HELPER -------------------
     private String fichaToString(Ficha ficha) {
         if (ficha == Ficha.X) return "X";
         if (ficha == Ficha.O) return "O";
