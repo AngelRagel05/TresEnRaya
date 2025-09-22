@@ -16,6 +16,7 @@ public class Juego {
             System.out.println(partida);
             partida.jugar(introducirFila(), introducirColumna());
         }
+        System.out.println("El juego ha acabado.");
     }
 
     private static int introducirFila() {
