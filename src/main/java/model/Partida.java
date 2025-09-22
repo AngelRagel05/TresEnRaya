@@ -5,7 +5,7 @@ public class Partida {
 //    Atributos
     private static final int TAM = 3;
     private Tablero tablero;
-    protected static Ficha turno;
+    public static Ficha turno;
 
 //    Constructor
     public Partida() {
@@ -34,7 +34,7 @@ public class Partida {
         return tablero.estaLleno() || ganador() != null;
     }
 
-    protected Ficha ganador() {
+    public Ficha ganador() {
 //        Comprueba si hay un ganador
         if (tablero.gana(Ficha.O) == true) return Ficha.O;
         if (tablero.gana(Ficha.X) == true) return Ficha.X;
